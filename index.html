@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Melbicom Data Centers Timeline Loop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&amp;family=Source+Sans+3:wght@400;600&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #3A3C4B;
+      --accent: #35CA70;
+      --accent-dark: #009440;
+      --secondary: #6E757F;
+      --white: #FFFFFF;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      background: #111318;
+      display: grid;
+      place-items: center;
+    }
+
+    .frame {
+      width: min(100vmin, 1080px);
+      aspect-ratio: 1 / 1;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      shape-rendering: geometricPrecision;
+      text-rendering: geometricPrecision;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <svg id="scene" viewBox="0 0 3000 3000" aria-label="Looped data center timeline animation">
+      <defs>
+        <clipPath id="sceneCircleClip">
+          <circle id="sceneCircleClipShape" cx="1493.68" cy="1499.51" r="53.5"></circle>
+        </clipPath>
+
+        <linearGradient id="tickerFade" x1="0" y1="0" x2="3000" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0.0952266" stop-color="white" stop-opacity="0"></stop>
+          <stop offset="0.323814" stop-color="white" stop-opacity="1"></stop>
+          <stop offset="0.680705" stop-color="white" stop-opacity="1"></stop>
+          <stop offset="0.89602" stop-color="white" stop-opacity="0"></stop>
+        </linearGradient>
+
+        <mask id="tickerMask" maskUnits="userSpaceOnUse" x="0" y="1580" width="3000" height="220">
+          <rect x="0" y="1580" width="3000" height="220" fill="url(#tickerFade)"></rect>
+        </mask>
+
+        <linearGradient id="timelineEdgeOverlayLeft" x1="0" y1="0" x2="680" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#3A3C4B" stop-opacity="1"></stop>
+          <stop offset="0.0735294" stop-color="#3A3C4B" stop-opacity="1"></stop>
+          <stop offset="1" stop-color="#3A3C4B" stop-opacity="0"></stop>
+        </linearGradient>
+
+        <linearGradient id="timelineEdgeOverlayRight" x1="2320" y1="0" x2="3000" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#3A3C4B" stop-opacity="0"></stop>
+          <stop offset="0.926471" stop-color="#3A3C4B" stop-opacity="1"></stop>
+          <stop offset="1" stop-color="#3A3C4B" stop-opacity="1"></stop>
+        </linearGradient>
+      </defs>
+
+      <rect width="3000" height="3000" fill="#3A3C4B"></rect>
+
+      <g id="uiLayer">
+        <path d="M1495.48 4359.99L2665 3693.93V1640L1492.57 2307.5L335 1647.76V3701.97L694.85 3907.14V2262.96L1492.86 2717.54L2305.44 2254.63V2673.58L1495.48 3134.76V3544.51L2305.44 3083.33V3488.76L1495.48 3950.24V4359.99Z" fill="#35CA70"></path>
+
+        <g id="headerGroup">
+          <path d="M1030.61 520.073L1120.91 468.631V310L1030.38 361.553L941 310.599V469.253L968.786 485.098V358.113L1030.41 393.222L1093.15 357.47V389.826L1030.61 425.445V457.092L1093.15 421.473V452.786L1030.61 488.427V520.073Z" fill="#35CA70"></path>
+          <text x="1192" y="446" fill="#FFFFFF" style="font-family: 'Montserrat', sans-serif; font-size: 124px; font-weight: 700; letter-spacing: 0.2px;">Data Centers</text>
+        </g>
+
+        <g id="counterGroup">
+          <text id="countMain" x="1500" y="1202" text-anchor="middle" fill="#FFFFFF" style="font-family: 'Montserrat', sans-serif; font-size: 640px; font-weight: 700; font-variant-numeric: tabular-nums lining-nums;">1</text>
+          <text id="countNext" x="1500" y="1202" text-anchor="middle" fill="#FFFFFF" opacity="0" style="font-family: 'Montserrat', sans-serif; font-size: 640px; font-weight: 700; font-variant-numeric: tabular-nums lining-nums;">1</text>
+        </g>
+
+        <g id="timelineGroup">
+          <g id="timelineMovingLayer">
+            <line id="timelineLine" x1="0" y1="1498" x2="3000" y2="1498" stroke="#9CB4BB" stroke-width="6"></line>
+            <g id="minorTicks"></g>
+            <g id="milestoneDots"></g>
+          </g>
+          <g id="timelineEdgeOverlays">
+            <rect x="0" y="1450" width="680" height="96" fill="url(#timelineEdgeOverlayLeft)"></rect>
+            <rect x="2320" y="1450" width="680" height="96" fill="url(#timelineEdgeOverlayRight)"></rect>
+          </g>
+          <circle id="currentDot" cx="1493.68" cy="1499.51" r="53.5" fill="#35CA70"></circle>
+          <circle id="currentDotHalo" cx="1493.68" cy="1499.51" r="53.5" fill="none" stroke="#35CA70" stroke-width="8" opacity="0"></circle>
+        </g>
+
+        <g id="labelsGroup">
+          <text id="dateCurrent" x="1494" y="1698" text-anchor="middle" fill="#FFFFFF" style="font-family: 'Source Sans 3', sans-serif; font-size: 128px; font-weight: 600; letter-spacing: 0.25px;">2016</text>
+          <text id="dateNext" x="1494" y="1698" text-anchor="middle" fill="#FFFFFF" opacity="0" style="font-family: 'Source Sans 3', sans-serif; font-size: 128px; font-weight: 600; letter-spacing: 0.25px;">2016</text>
+
+          <g id="tickerLayer" mask="url(#tickerMask)" opacity="0">
+            <g id="tickerTrack"></g>
+          </g>
+        </g>
+      </g>
+
+      <g id="scene3Layer" clip-path="url(#sceneCircleClip)" opacity="0">
+        <rect width="3000" height="3000" fill="#39C86C"></rect>
+        <g id="brazilDotsLayer"></g>
+
+        <g id="finalContent" opacity="0">
+          <text x="1500" y="1500" text-anchor="middle" fill="#FFFFFF" style="font-family: 'Montserrat', sans-serif; font-size: 198px; font-weight: 700; letter-spacing: 0.16px;">
+            <tspan x="1500" dy="-0.35em">H1 2026: New Data</tspan>
+            <tspan x="1500" dy="1.2em">Center in São Paulo</tspan>
+          </text>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <script>
+    (() => {
+      const SVG_NS = "http://www.w3.org/2000/svg";
+
+      const LOOP_SECONDS = 10.1;
+      const START_HOLD_SECONDS = 0.5;
+      const SCENE1_SECONDS = 6.55;
+      const SHRINK_SECONDS = 0.22;
+      const EXPAND_SECONDS = 0.7;
+      const REVEAL_SECONDS = 0.6;
+      const HOLD_SECONDS = 1.35;
+      const COLLAPSE_SECONDS = 0.68;
+      const MAP_REVEAL_SLOW_FACTOR = 2;
+
+      const SCENE1_END = SCENE1_SECONDS;
+      const SHRINK_END = SCENE1_END + SHRINK_SECONDS;
+      const EXPAND_END = SHRINK_END + EXPAND_SECONDS;
+      const REVEAL_END = EXPAND_END + REVEAL_SECONDS;
+      const HOLD_END = REVEAL_END + HOLD_SECONDS;
+      const LOOP_WITH_START_HOLD = LOOP_SECONDS + START_HOLD_SECONDS;
+
+      const CENTER_X = 1493.68;
+      const CENTER_Y = 1499.51;
+      const COUNT_LABEL_Y = 1202;
+      const DATE_LABEL_Y = 1698;
+      const DOT_BASE_R = 53.5;
+      const CIRCLE_FULL_R = 2260;
+      // 5x zoom feel: much wider spacing and faster apparent timeline motion.
+      const TIMELINE_SCROLL_MAX = 7900;
+      const TIMELINE_LINE_LENGTH = 18000;
+
+      const timelineLine = document.getElementById("timelineLine");
+      const milestoneDotsLayer = document.getElementById("milestoneDots");
+      const timelineMovingLayer = document.getElementById("timelineMovingLayer");
+      const currentDot = document.getElementById("currentDot");
+      const currentDotHalo = document.getElementById("currentDotHalo");
+      const uiLayer = document.getElementById("uiLayer");
+      const countMain = document.getElementById("countMain");
+      const countNext = document.getElementById("countNext");
+      const dateCurrent = document.getElementById("dateCurrent");
+      const dateNext = document.getElementById("dateNext");
+      const tickerTrack = document.getElementById("tickerTrack");
+      const scene3Layer = document.getElementById("scene3Layer");
+      const clipCircle = document.getElementById("sceneCircleClipShape");
+      const brazilDotsLayer = document.getElementById("brazilDotsLayer");
+      const finalContent = document.getElementById("finalContent");
+      const minorTicks = document.getElementById("minorTicks");
+
+      const milestones = [
+        { label: "Jun 2016", count: 1 },
+        { label: "Aug 2016", count: 3 },
+        { label: "May 2017", count: 4 },
+        { label: "Jul 2017", count: 5 },
+        { label: "Aug 2017", count: 6 },
+        { label: "Apr 2018", count: 7 },
+        { label: "Mar 2020", count: 8 },
+        { label: "Oct 2020", count: 9 },
+        { label: "Nov 2020", count: 10 },
+        { label: "Apr 2021", count: 11 },
+        { label: "Aug 2021", count: 12 },
+        { label: "Jun 2022", count: 13 },
+        { label: "Jul 2022", count: 14 },
+        { label: "Aug 2022", count: 15 },
+        { label: "Sep 2022", count: 16 },
+        { label: "Nov 2023", count: 17 },
+        { label: "Aug 2024", count: 18 },
+        { label: "Jan 2025", count: 19 },
+        { label: "Oct 2025", count: 20 },
+        { label: "H1 2026", count: 21 }
+      ];
+
+      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      const monthIndexByName = Object.fromEntries(monthNames.map((name, idx) => [name, idx]));
+      const CLOSE_CLUSTER_MONTHS = 3;
+
+      function labelToMonthIndex(label) {
+        if (label.startsWith("H1 ")) {
+          const year = Number(label.slice(3));
+          return year * 12 + 5;
+        }
+        const [monthName, yearText] = label.split(" ");
+        return Number(yearText) * 12 + monthIndexByName[monthName];
+      }
+
+      const firstMonthIndex = labelToMonthIndex(milestones[0].label);
+      const lastMonthIndex = labelToMonthIndex(milestones[milestones.length - 1].label);
+      const monthSpan = Math.max(1, lastMonthIndex - firstMonthIndex);
+      for (const milestone of milestones) {
+        milestone.monthIndex = labelToMonthIndex(milestone.label);
+        milestone.progress = (milestone.monthIndex - firstMonthIndex) / monthSpan;
+      }
+
+      // Display track: collapse tight month clusters so the big number doesn't flicker.
+      const displayMilestones = [];
+      for (let i = 0; i < milestones.length; ) {
+        let j = i;
+        while (
+          j + 1 < milestones.length &&
+          (milestones[j + 1].monthIndex - milestones[j].monthIndex) <= CLOSE_CLUSTER_MONTHS
+        ) {
+          j += 1;
+        }
+
+        if (i === 0) {
+          displayMilestones.push(milestones[i]);
+          if (j !== i) {
+            displayMilestones.push(milestones[j]);
+          }
+        } else {
+          displayMilestones.push(milestones[j]);
+        }
+
+        i = j + 1;
+      }
+
+      const tickerLabels = [];
+      for (let year = 2016; year <= 2026; year += 1) {
+        tickerLabels.push(String(year));
+      }
+
+      function labelToYearText(label) {
+        if (label.startsWith("H1 ")) {
+          return label.slice(3);
+        }
+        return label.split(" ")[1];
+      }
+
+      function clamp(v, min, max) {
+        return Math.min(max, Math.max(min, v));
+      }
+
+      function lerp(a, b, t) {
+        return a + (b - a) * t;
+      }
+
+      function easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+
+      function easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      }
+
+      function smoothstep(t) {
+        return t * t * (3 - 2 * t);
+      }
+
+      function setOpacity(el, v) {
+        el.setAttribute("opacity", clamp(v, 0, 1).toFixed(3));
+      }
+
+      function setDateWeight(el) {
+        el.setAttribute("font-weight", "600");
+      }
+
+      function mixWhiteToAccent(t) {
+        const p = clamp(t, 0, 1);
+        const r = Math.round(156 + (53 - 156) * p);
+        const g = Math.round(180 + (202 - 180) * p);
+        const b = Math.round(187 + (112 - 187) * p);
+        return `rgb(${r} ${g} ${b})`;
+      }
+
+      for (let x = 20; x <= 2980; x += 70) {
+        const t = document.createElementNS(SVG_NS, "line");
+        t.setAttribute("x1", x);
+        t.setAttribute("x2", x);
+        t.setAttribute("y1", "1490");
+        t.setAttribute("y2", "1506");
+        t.setAttribute("stroke", "#6E757F");
+        t.setAttribute("stroke-opacity", "0.36");
+        t.setAttribute("stroke-width", "1.2");
+        minorTicks.appendChild(t);
+      }
+
+      for (const milestone of milestones) {
+        const dot = document.createElementNS(SVG_NS, "circle");
+        dot.setAttribute("cx", (CENTER_X + TIMELINE_SCROLL_MAX * milestone.progress).toFixed(2));
+        dot.setAttribute("cy", "1498");
+        dot.setAttribute("r", "18");
+        dot.setAttribute("fill", "#35CA70");
+        milestoneDotsLayer.appendChild(dot);
+      }
+
+      const tickerSlots = [];
+      const TICKER_SLOT_COUNT = 20;
+      const TICKER_SPACING = 220;
+      for (let i = 0; i < TICKER_SLOT_COUNT; i += 1) {
+        const text = document.createElementNS(SVG_NS, "text");
+        text.setAttribute("x", String(i * TICKER_SPACING));
+        text.setAttribute("y", "1782");
+        text.setAttribute("fill", "#6E757F");
+        text.setAttribute("text-anchor", "middle");
+        text.setAttribute("style", "font-family:'Source Sans 3', sans-serif; font-size:58px; letter-spacing:0.2px;");
+        tickerTrack.appendChild(text);
+        tickerSlots.push(text);
+      }
+
+      let seed = 20260217;
+      function random() {
+        seed = (seed * 1664525 + 1013904223) >>> 0;
+        return seed / 4294967296;
+      }
+
+      const BRAZIL_DOTS = [{"x":684.519,"y":31.063,"r":31.063},{"x":439.325,"y":847.942,"r":31.063},{"x":684.519,"y":847.899,"r":31.063},{"x":1256.145,"y":1256.325,"r":31.065},{"x":1909.695,"y":1256.29,"r":31.062},{"x":31.043,"y":684.543,"r":31.043},{"x":1092.955,"y":847.879,"r":31.044},{"x":1501.315,"y":847.879,"r":31.044},{"x":1092.955,"y":439.529,"r":31.044},{"x":847.863,"y":439.473,"r":31.043},{"x":684.5,"y":439.473,"r":31.043},{"x":1092.955,"y":1664.755,"r":31.045},{"x":1501.315,"y":1256.285,"r":31.045},{"x":847.863,"y":602.971,"r":31.043},{"x":1256.3,"y":1501.39,"r":31.02},{"x":1256.205,"y":2073.14,"r":31.022},{"x":1256.3,"y":684.524,"r":31.022},{"x":1664.765,"y":684.524,"r":31.024},{"x":276.121,"y":847.914,"r":31.023},{"x":1256.3,"y":1909.765,"r":31.022},{"x":1256.3,"y":276.156,"r":31.022},{"x":1256.205,"y":847.914,"r":31.024},{"x":1092.935,"y":1256.25,"r":31.022},{"x":1909.755,"y":847.914,"r":31.024},{"x":1256.105,"y":1664.795,"r":31.025},{"x":439.286,"y":439.567,"r":31.023},{"x":1256.3,"y":1092.925,"r":31.022},{"x":2073,"y":847.957,"r":31.002},{"x":439.485,"y":684.442,"r":31.023},{"x":847.824,"y":276.137,"r":31.004},{"x":1664.54,"y":1664.81,"r":31},{"x":1664.54,"y":439.465,"r":31.002},{"x":1664.54,"y":1256.345,"r":31.002},{"x":1256.28,"y":439.586,"r":31.002},{"x":602.77,"y":357.934,"r":31.043},{"x":1664.54,"y":847.951,"r":31.002},{"x":1419.685,"y":1174.75,"r":31.042},{"x":1419.645,"y":357.976,"r":31.004},{"x":1011.187,"y":1174.79,"r":31.002},{"x":1256.28,"y":602.951,"r":31.002},{"x":684.543,"y":684.541,"r":30.984},{"x":847.804,"y":684.591,"r":30.984},{"x":2073.085,"y":684.591,"r":30.985},{"x":1582.93,"y":766.179,"r":31.022},{"x":1828.005,"y":439.643,"r":31.004},{"x":1256.385,"y":1011.398,"r":31.004},{"x":1419.665,"y":1583.125,"r":31.025},{"x":194.371,"y":357.976,"r":31.004},{"x":929.535,"y":1256.35,"r":30.982},{"x":1337.895,"y":1664.755,"r":30.985},{"x":1011.167,"y":1256.425,"r":30.984},{"x":1828.105,"y":1174.71,"r":31.002},{"x":1582.995,"y":1664.79,"r":30.983},{"x":1419.625,"y":439.691,"r":30.984},{"x":1664.725,"y":1092.97,"r":30.983},{"x":1174.535,"y":1664.835,"r":30.985},{"x":276.082,"y":194.621,"r":30.984},{"x":1337.895,"y":1011.296,"r":30.984},{"x":847.804,"y":847.984,"r":30.984},{"x":1092.975,"y":276.264,"r":30.965},{"x":1746.355,"y":1419.735,"r":30.985},{"x":602.906,"y":848.098,"r":30.984},{"x":1174.535,"y":2073.24,"r":30.982},{"x":1174.535,"y":1174.615,"r":30.985},{"x":1011.167,"y":766.359,"r":30.984},{"x":521.074,"y":766.359,"r":30.984},{"x":357.715,"y":766.201,"r":30.984},{"x":276.063,"y":439.332,"r":30.964},{"x":1501.445,"y":684.533,"r":30.965},{"x":684.524,"y":276.264,"r":30.965},{"x":847.902,"y":1011.397,"r":30.984},{"x":684.617,"y":1093.085,"r":30.965},{"x":1174.635,"y":1583.1,"r":30.982},{"x":1092.975,"y":1501.495,"r":30.965},{"x":2072.98,"y":602.968,"r":30.982},{"x":847.784,"y":1093.045,"r":30.965},{"x":929.535,"y":602.912,"r":30.984},{"x":1746.25,"y":1501.455,"r":30.983},{"x":1174.615,"y":929.644,"r":30.965},{"x":1174.615,"y":848.014,"r":30.965},{"x":929.515,"y":847.968,"r":30.964},{"x":1419.605,"y":848.139,"r":30.965},{"x":1174.615,"y":2154.815,"r":30.965},{"x":1582.975,"y":848.014,"r":30.965},{"x":1174.495,"y":439.609,"r":30.945},{"x":357.89,"y":848.014,"r":30.965},{"x":194.527,"y":848.064,"r":30.965},{"x":1746.335,"y":847.968,"r":30.965},{"x":1746.23,"y":602.938,"r":30.962},{"x":1256.345,"y":1828.22,"r":30.962},{"x":1828.165,"y":848.112,"r":30.965},{"x":276.063,"y":603.088,"r":30.964},{"x":1419.605,"y":1664.855,"r":30.965},{"x":684.421,"y":194.683,"r":30.964},{"x":1011.245,"y":1664.855,"r":30.965},{"x":1991.425,"y":766.283,"r":30.965},{"x":929.515,"y":1664.81,"r":30.962},{"x":1828.165,"y":766.399,"r":30.965},{"x":1419.605,"y":766.36,"r":30.965},{"x":1501.335,"y":603.088,"r":30.965},{"x":1337.875,"y":1501.435,"r":30.965},{"x":1501.335,"y":1419.91,"r":30.962},{"x":1991.325,"y":929.7,"r":30.965},{"x":1909.775,"y":603.031,"r":30.945},{"x":521.054,"y":1011.343,"r":30.966},{"x":1092.975,"y":1011.474,"r":30.966},{"x":1664.705,"y":1011.505,"r":30.965},{"x":194.332,"y":766.36,"r":30.964},{"x":1092.955,"y":1093.105,"r":30.945},{"x":1991.425,"y":1338.045,"r":30.965},{"x":2154.695,"y":684.598,"r":30.965},{"x":521.054,"y":684.598,"r":30.965},{"x":766.152,"y":521.226,"r":30.965},{"x":1501.425,"y":1093.105,"r":30.945},{"x":1909.875,"y":684.578,"r":30.945},{"x":1174.615,"y":357.911,"r":30.965},{"x":357.695,"y":357.777,"r":30.965},{"x":1746.23,"y":684.598,"r":30.962},{"x":1582.975,"y":1174.645,"r":30.965},{"x":1174.615,"y":1256.395,"r":30.965},{"x":766.152,"y":357.827,"r":30.964},{"x":1337.855,"y":684.578,"r":30.945},{"x":1991.405,"y":1174.685,"r":30.945},{"x":1092.935,"y":684.575,"r":30.925},{"x":1909.875,"y":1093.085,"r":30.945},{"x":1419.585,"y":1256.485,"r":30.945},{"x":1828.145,"y":1256.455,"r":30.945},{"x":1174.595,"y":1338.005,"r":30.945},{"x":602.765,"y":684.539,"r":30.945},{"x":1582.955,"y":1338.005,"r":30.945},{"x":276.12,"y":684.575,"r":30.925},{"x":929.398,"y":1092.985,"r":30.945},{"x":929.398,"y":1419.735,"r":30.945},{"x":112.48,"y":684.578,"r":30.945},{"x":1337.855,"y":1419.755,"r":30.945},{"x":1746.215,"y":1011.337,"r":30.944},{"x":1419.585,"y":1011.357,"r":30.944},{"x":602.765,"y":766.353,"r":30.945},{"x":766.132,"y":766.271,"r":30.945},{"x":1011.226,"y":1011.323,"r":30.946},{"x":602.765,"y":1011.323,"r":30.946},{"x":1011.327,"y":276.187,"r":30.944},{"x":929.398,"y":276.173,"r":30.945},{"x":1827.945,"y":521.156,"r":30.945},{"x":1092.855,"y":929.603,"r":30.945},{"x":1337.855,"y":766.24,"r":30.945},{"x":1501.425,"y":1501.555,"r":30.945},{"x":1501.215,"y":766.32,"r":30.945},{"x":766.132,"y":929.681,"r":30.945},{"x":2154.775,"y":847.976,"r":30.945},{"x":766.132,"y":439.652,"r":30.945},{"x":1092.855,"y":603.05,"r":30.945},{"x":1991.405,"y":848.058,"r":30.945},{"x":684.382,"y":603.049,"r":30.925},{"x":1337.855,"y":1828.165,"r":30.945},{"x":1337.855,"y":602.918,"r":30.945},{"x":1582.955,"y":521.193,"r":30.945},{"x":357.89,"y":521.226,"r":30.965},{"x":1337.855,"y":1909.805,"r":30.945},{"x":1174.595,"y":1991.495,"r":30.945},{"x":1337.855,"y":1991.475,"r":30.945},{"x":112.574,"y":602.929,"r":30.945},{"x":1582.955,"y":439.652,"r":30.945},{"x":766.132,"y":31.211,"r":30.945},{"x":1909.795,"y":521.176,"r":30.965},{"x":1746.195,"y":1092.965,"r":30.925},{"x":1828.125,"y":1419.815,"r":30.925},{"x":766.093,"y":847.909,"r":30.906},{"x":1419.585,"y":1991.565,"r":30.945},{"x":1337.935,"y":439.55,"r":30.925},{"x":194.292,"y":521.173,"r":30.926},{"x":521.116,"y":357.834,"r":30.926},{"x":1256.205,"y":1991.47,"r":30.928},{"x":1011.107,"y":1337.985,"r":30.924},{"x":1419.565,"y":1337.985,"r":30.925},{"x":1909.835,"y":766.401,"r":30.905},{"x":1256.205,"y":1174.645,"r":30.925},{"x":1909.775,"y":1338.025,"r":30.945},{"x":1092.815,"y":1174.805,"r":30.905},{"x":276.023,"y":929.614,"r":30.925},{"x":1174.595,"y":1746.435,"r":30.945},{"x":1092.815,"y":357.983,"r":30.905},{"x":684.382,"y":929.583,"r":30.925},{"x":439.582,"y":521.187,"r":30.925},{"x":1011.307,"y":1419.815,"r":30.924},{"x":1011.307,"y":602.955,"r":30.924},{"x":1828.125,"y":684.575,"r":30.925},{"x":1256.205,"y":766.244,"r":30.925},{"x":1582.935,"y":1583.115,"r":30.925},{"x":1419.565,"y":929.583,"r":30.925},{"x":1419.565,"y":1093.015,"r":30.925},{"x":1337.835,"y":1092.965,"r":30.925},{"x":766.132,"y":112.802,"r":30.945},{"x":276.023,"y":276.341,"r":30.925},{"x":521.015,"y":276.224,"r":30.925},{"x":1909.875,"y":929.66,"r":30.945},{"x":1092.815,"y":766.401,"r":30.905},{"x":1909.855,"y":1011.395,"r":30.925},{"x":276.101,"y":766.375,"r":30.906},{"x":1664.755,"y":1501.395,"r":30.925},{"x":521.015,"y":602.935,"r":30.925},{"x":1419.565,"y":1746.405,"r":30.925},{"x":929.476,"y":1011.225,"r":30.925},{"x":684.578,"y":521.136,"r":30.925},{"x":1501.425,"y":521.156,"r":30.945},{"x":602.847,"y":439.632,"r":30.925},{"x":684.558,"y":766.401,"r":30.906},{"x":194.386,"y":439.659,"r":30.925},{"x":929.379,"y":684.558,"r":30.925},{"x":1828.125,"y":1011.317,"r":30.924},{"x":439.347,"y":766.294,"r":30.886},{"x":602.726,"y":521.135,"r":30.906},{"x":1828.185,"y":1501.475,"r":30.885},{"x":1092.835,"y":2154.825,"r":30.925},{"x":1337.82,"y":1746.485,"r":30.908},{"x":1092.895,"y":1583.235,"r":30.885},{"x":2073.205,"y":929.563,"r":30.905},{"x":1501.365,"y":357.984,"r":30.885},{"x":1419.645,"y":602.965,"r":30.905},{"x":1419.725,"y":1501.475,"r":30.885},{"x":112.636,"y":766.281,"r":30.906},{"x":439.461,"y":275.995,"r":30.905},{"x":1828.105,"y":929.62,"r":30.905},{"x":602.909,"y":276.241,"r":30.886},{"x":1664.645,"y":929.563,"r":30.905},{"x":194.448,"y":276.241,"r":30.886},{"x":1337.82,"y":2154.79,"r":30.91},{"x":1337.82,"y":929.563,"r":30.908},{"x":1256.385,"y":929.563,"r":30.905},{"x":1664.645,"y":1583.075,"r":30.905},{"x":1419.745,"y":1419.805,"r":30.905},{"x":929.457,"y":929.563,"r":30.905},{"x":1828.105,"y":602.965,"r":30.905},{"x":847.823,"y":929.563,"r":30.906},{"x":1664.645,"y":521.224,"r":30.905},{"x":602.726,"y":929.62,"r":30.906},{"x":602.827,"y":602.992,"r":30.905},{"x":1174.575,"y":2236.525,"r":30.925},{"x":1337.915,"y":1174.665,"r":30.905},{"x":1828.105,"y":1338.025,"r":30.905},{"x":1501.365,"y":1174.805,"r":30.885},{"x":1501.405,"y":1338.085,"r":30.925},{"x":1092.895,"y":2236.745,"r":30.885},{"x":1337.82,"y":1337.965,"r":30.907},{"x":847.823,"y":357.879,"r":30.906},{"x":1909.815,"y":1174.765,"r":30.885},{"x":1092.835,"y":1337.985,"r":30.925},{"x":2073.205,"y":766.25,"r":30.905},{"x":194.468,"y":603.029,"r":30.906},{"x":1419.55,"y":521.211,"r":30.908},{"x":1011.185,"y":521.135,"r":30.905},{"x":1991.39,"y":521.187,"r":30.927},{"x":1092.815,"y":521.154,"r":30.905},{"x":1582.895,"y":1256.455,"r":30.885},{"x":684.578,"y":1011.424,"r":30.926},{"x":1011.352,"y":684.638,"r":30.867},{"x":276.159,"y":357.987,"r":30.867},{"x":1174.515,"y":684.562,"r":30.866},{"x":1746.355,"y":521.204,"r":30.886},{"x":684.62,"y":357.964,"r":30.866},{"x":929.437,"y":1337.985,"r":30.885},{"x":1419.705,"y":684.638,"r":30.866},{"x":929.437,"y":521.247,"r":30.886},{"x":1174.73,"y":521.236,"r":30.888},{"x":602.808,"y":194.605,"r":30.886},{"x":1746.355,"y":1174.725,"r":30.885},{"x":1011.165,"y":2073.225,"r":30.885},{"x":276.198,"y":521.224,"r":30.906},{"x":1256.365,"y":521.191,"r":30.885},{"x":1256.365,"y":112.779,"r":30.886},{"x":1746.355,"y":1337.985,"r":30.885},{"x":684.64,"y":112.761,"r":30.886},{"x":602.706,"y":112.837,"r":30.886},{"x":1664.605,"y":766.317,"r":30.866},{"x":194.53,"y":684.638,"r":30.867},{"x":1337.8,"y":521.204,"r":30.888},{"x":1991.35,"y":603.009,"r":30.888},{"x":1419.705,"y":1909.865,"r":30.865},{"x":847.784,"y":1174.725,"r":30.866},{"x":847.804,"y":521.191,"r":30.886},{"x":1011.267,"y":929.575,"r":30.885},{"x":1174.535,"y":766.337,"r":30.885},{"x":1011.267,"y":847.986,"r":30.885},{"x":1256.345,"y":357.905,"r":30.866},{"x":1256.365,"y":1746.415,"r":30.885},{"x":1256.265,"y":2154.79,"r":30.887},{"x":1174.515,"y":1909.785,"r":30.865},{"x":1337.915,"y":1583.095,"r":30.905},{"x":1256.345,"y":1583.135,"r":30.865},{"x":1746.355,"y":929.575,"r":30.886},{"x":847.902,"y":766.294,"r":30.886},{"x":1337.915,"y":357.879,"r":30.905},{"x":1011.267,"y":2154.925,"r":30.884},{"x":766.135,"y":1092.985,"r":30.846},{"x":1174.515,"y":1828.215,"r":30.865},{"x":1174.605,"y":1011.282,"r":30.867},{"x":1582.965,"y":602.99,"r":30.866},{"x":766.156,"y":1011.324,"r":30.866},{"x":521.058,"y":521.216,"r":30.866},{"x":2154.695,"y":929.602,"r":30.866},{"x":1011.352,"y":1093.005,"r":30.866},{"x":1174.495,"y":1501.39,"r":30.847},{"x":30.948,"y":766.355,"r":30.847},{"x":1174.495,"y":1092.985,"r":30.845},{"x":766.135,"y":276.163,"r":30.847},{"x":1828.165,"y":1093.005,"r":30.865},{"x":521.058,"y":929.555,"r":30.867},{"x":2236.325,"y":847.997,"r":30.866},{"x":929.519,"y":1174.67,"r":30.868},{"x":1664.605,"y":1338.015,"r":30.865},{"x":2154.775,"y":766.372,"r":30.846},{"x":1582.875,"y":684.499,"r":30.865},{"x":1256.345,"y":1337.985,"r":30.865},{"x":357.792,"y":602.99,"r":30.866},{"x":357.792,"y":194.542,"r":30.866},{"x":1174.57,"y":2318.175,"r":30.828},{"x":1746.315,"y":766.298,"r":30.846},{"x":1746.335,"y":1583.095,"r":30.865},{"x":929.679,"y":766.352,"r":30.827},{"x":1991.29,"y":684.599,"r":30.829},{"x":357.753,"y":276.183,"r":30.827},{"x":1582.93,"y":1093.005,"r":30.827},{"x":1664.66,"y":1174.765,"r":30.827},{"x":439.523,"y":357.839,"r":30.866},{"x":1582.965,"y":1419.77,"r":30.868},{"x":1174.515,"y":1419.77,"r":30.868},{"x":766.116,"y":684.599,"r":30.827},{"x":357.753,"y":684.599,"r":30.827},{"x":1174.475,"y":276.208,"r":30.826},{"x":766.034,"y":194.565,"r":30.846},{"x":1174.57,"y":602.989,"r":30.829},{"x":766.116,"y":602.989,"r":30.827},{"x":1011.231,"y":439.844,"r":30.847},{"x":1174.67,"y":194.52,"r":30.829},{"x":1583.01,"y":1501.32,"r":30.81},{"x":1011.152,"y":1501.2,"r":30.769},{"x":1011.091,"y":358.079,"r":30.709},{"x":1583.03,"y":1011.503,"r":30.729},{"x":929.342,"y":1583.09,"r":30.69},{"x":929.303,"y":357.828,"r":30.65},{"x":1582.955,"y":929.699,"r":30.653}];
+
+      const BRAZIL_SOURCE_BOUNDS = {
+        minX: 30.948,
+        maxX: 2236.325,
+        minY: 31.063,
+        maxY: 2318.175
+      };
+      const BRAZIL_MAP_SCALE = 0.95;
+      const BRAZIL_SOURCE_CX = (BRAZIL_SOURCE_BOUNDS.minX + BRAZIL_SOURCE_BOUNDS.maxX) / 2;
+      const BRAZIL_SOURCE_CY = (BRAZIL_SOURCE_BOUNDS.minY + BRAZIL_SOURCE_BOUNDS.maxY) / 2;
+      const BRAZIL_MAP_OFFSET_X = CENTER_X - BRAZIL_SOURCE_CX * BRAZIL_MAP_SCALE;
+      const BRAZIL_MAP_OFFSET_Y = CENTER_Y - BRAZIL_SOURCE_CY * BRAZIL_MAP_SCALE;
+
+      const brazilDots = [];
+      for (const dot of BRAZIL_DOTS) {
+        const px = BRAZIL_MAP_OFFSET_X + dot.x * BRAZIL_MAP_SCALE;
+        const py = BRAZIL_MAP_OFFSET_Y + dot.y * BRAZIL_MAP_SCALE;
+        const targetR = dot.r * BRAZIL_MAP_SCALE;
+        const baseR = Math.max(1.2, targetR * 0.08);
+        const verticalBias = clamp((py - 560) / 1900, 0, 1);
+        const delay = clamp(random() * 0.66 + verticalBias * 0.04, 0, 0.68);
+        const maxDuration = Math.max(0.14, 1 - delay);
+        const duration = Math.max(0.14, Math.min(maxDuration, 0.26 + random() * 0.24));
+
+        const c = document.createElementNS(SVG_NS, "circle");
+        c.setAttribute("cx", px.toFixed(2));
+        c.setAttribute("cy", py.toFixed(2));
+        c.setAttribute("r", baseR.toFixed(2));
+        c.setAttribute("fill", "#22A955");
+        c.setAttribute("opacity", "0");
+        brazilDotsLayer.appendChild(c);
+        brazilDots.push({ el: c, delay, duration, baseR, targetR });
+      }
+
+      function timelineState(t) {
+        const last = milestones.length - 1;
+        if (t <= 0) {
+          return { idx: 0, next: 1, progress: 0, local: 0, blend: 0 };
+        }
+        if (t >= SCENE1_SECONDS) {
+          return { idx: last, next: last, progress: 1, local: 1, blend: 1 };
+        }
+
+        // Best-practice: motion follows real timeline progress continuously.
+        const progress = clamp(t / SCENE1_SECONDS, 0, 1);
+
+        let idx = 0;
+        while (idx < last && milestones[idx + 1].progress <= progress + 1e-6) {
+          idx += 1;
+        }
+        const next = Math.min(last, idx + 1);
+        if (idx === next) {
+          return { idx, next, progress, local: 1, blend: 1 };
+        }
+
+        const startP = milestones[idx].progress;
+        const endP = milestones[next].progress;
+        const span = Math.max(1e-6, endP - startP);
+        const local = clamp((progress - startP) / span, 0, 1);
+        const blend = smoothstep(clamp((local - 0.35) / 0.55, 0, 1));
+
+        return { idx, next, progress, local, blend };
+      }
+
+      function displayState(progress) {
+        const last = displayMilestones.length - 1;
+        if (progress <= displayMilestones[0].progress + 1e-6) {
+          return { idx: 0, next: Math.min(1, last), blend: 0 };
+        }
+        if (progress >= displayMilestones[last].progress - 1e-6) {
+          return { idx: last, next: last, blend: 1 };
+        }
+
+        let idx = 0;
+        while (idx < last && displayMilestones[idx + 1].progress <= progress + 1e-6) {
+          idx += 1;
+        }
+        const next = Math.min(last, idx + 1);
+        if (idx === next) {
+          return { idx, next, blend: 1 };
+        }
+
+        const startP = displayMilestones[idx].progress;
+        const endP = displayMilestones[next].progress;
+        const local = clamp((progress - startP) / Math.max(1e-6, endP - startP), 0, 1);
+        const blend = smoothstep(clamp((local - 0.42) / 0.58, 0, 1));
+        return { idx, next, blend };
+      }
+
+      function updateTicker(t) {
+        const speed = 760;
+        const travel = t * speed;
+        const shift = travel % TICKER_SPACING;
+        const offset = Math.floor(travel / TICKER_SPACING);
+
+        for (let i = 0; i < tickerSlots.length; i += 1) {
+          const x = -180 + i * TICKER_SPACING - shift;
+          const label = tickerLabels[(offset + i) % tickerLabels.length];
+          const slot = tickerSlots[i];
+          slot.setAttribute("x", x.toFixed(2));
+          slot.textContent = label;
+        }
+      }
+
+      function updateTimeline(sceneTime) {
+        const motion = timelineState(sceneTime);
+        const display = displayState(motion.progress);
+        const current = displayMilestones[display.idx];
+        const next = displayMilestones[display.next];
+        const totalProgress = motion.progress;
+        const scrollX = -TIMELINE_SCROLL_MAX * totalProgress;
+        timelineMovingLayer.setAttribute("transform", `translate(${scrollX.toFixed(2)} 0)`);
+
+        if (display.idx === display.next) {
+          countMain.textContent = String(current.count);
+          countMain.setAttribute("y", String(COUNT_LABEL_Y));
+          countNext.setAttribute("y", String(COUNT_LABEL_Y));
+          setOpacity(countMain, 1);
+          setOpacity(countNext, 0);
+
+          dateCurrent.textContent = labelToYearText(current.label);
+          dateCurrent.setAttribute("y", String(DATE_LABEL_Y));
+          dateNext.setAttribute("y", String(DATE_LABEL_Y));
+          setDateWeight(dateCurrent);
+          setDateWeight(dateNext);
+          setOpacity(dateCurrent, 1);
+          setOpacity(dateNext, 0);
+        } else {
+          const s = display.blend;
+
+          countMain.textContent = String(current.count);
+          countNext.textContent = String(next.count);
+          countMain.setAttribute("y", String(COUNT_LABEL_Y));
+          countNext.setAttribute("y", String(COUNT_LABEL_Y));
+          setOpacity(countMain, 1 - Math.pow(s, 1.15));
+          setOpacity(countNext, Math.pow(s, 1.15));
+
+          const currentYear = labelToYearText(current.label);
+          const nextYear = labelToYearText(next.label);
+          dateCurrent.textContent = currentYear;
+          dateNext.textContent = nextYear;
+          setDateWeight(dateCurrent);
+          setDateWeight(dateNext);
+          dateCurrent.setAttribute("y", String(DATE_LABEL_Y));
+          dateNext.setAttribute("y", String(DATE_LABEL_Y));
+          if (currentYear === nextYear) {
+            setOpacity(dateCurrent, 1);
+            setOpacity(dateNext, 0);
+          } else {
+            setOpacity(dateCurrent, 1 - Math.pow(s, 1.1));
+            setOpacity(dateNext, Math.pow(s, 1.1));
+          }
+        }
+
+        currentDot.setAttribute("r", DOT_BASE_R.toFixed(2));
+        currentDot.setAttribute("opacity", "1");
+        currentDotHalo.setAttribute("opacity", "0");
+
+        updateTicker(sceneTime);
+      }
+
+      function updateMapDots(revealProgress, alphaScale) {
+        for (const d of brazilDots) {
+          if (revealProgress <= d.delay) {
+            d.el.setAttribute("r", d.baseR.toFixed(2));
+            d.el.setAttribute("opacity", "0");
+            continue;
+          }
+          const local = clamp((revealProgress - d.delay) / d.duration, 0, 1);
+          const eased = easeOutCubic(local);
+          d.el.setAttribute("r", lerp(d.baseR, d.targetR, eased).toFixed(2));
+          d.el.setAttribute("opacity", ((0.08 + 0.64 * eased) * alphaScale).toFixed(3));
+        }
+      }
+
+      function resetMapDots() {
+        for (const d of brazilDots) {
+          d.el.setAttribute("r", d.baseR.toFixed(2));
+          d.el.setAttribute("opacity", "0");
+        }
+      }
+
+      let mapVisible = false;
+      resetMapDots();
+
+      function render(t) {
+        let uiOpacity = 1;
+        let sceneTime = 0;
+        let lineEnd = TIMELINE_LINE_LENGTH;
+        let lineCoverProgress = 0;
+
+        let scene3Opacity = 0;
+        let circleR = DOT_BASE_R;
+        let mapReveal = 0;
+        let mapAlpha = 0;
+        let finalTextOpacity = 0;
+
+        if (t < SCENE1_END) {
+          sceneTime = t;
+          lineCoverProgress = clamp((t - (SCENE1_END - 0.34)) / 0.34, 0, 1);
+        } else if (t < SHRINK_END) {
+          const p = easeInOutCubic((t - SCENE1_END) / SHRINK_SECONDS);
+          sceneTime = SCENE1_SECONDS;
+          lineEnd = TIMELINE_LINE_LENGTH;
+          uiOpacity = 1 - 0.06 * p;
+          lineCoverProgress = 1;
+        } else if (t < EXPAND_END) {
+          const p = easeInOutCubic((t - SHRINK_END) / EXPAND_SECONDS);
+          sceneTime = SCENE1_SECONDS;
+          lineEnd = TIMELINE_LINE_LENGTH;
+          uiOpacity = 1 - smoothstep(p);
+          scene3Opacity = 1;
+          circleR = lerp(DOT_BASE_R, CIRCLE_FULL_R, p);
+          lineCoverProgress = 1;
+        } else if (t < REVEAL_END) {
+          const p = clamp((t - EXPAND_END) / REVEAL_SECONDS, 0, 1);
+          sceneTime = SCENE1_SECONDS;
+          lineEnd = TIMELINE_LINE_LENGTH;
+          uiOpacity = 0;
+          scene3Opacity = 1;
+          circleR = CIRCLE_FULL_R;
+          mapReveal = clamp(p / MAP_REVEAL_SLOW_FACTOR, 0, 1);
+          mapAlpha = 0.62;
+          finalTextOpacity = smoothstep(clamp((p - 0.12) / 0.58, 0, 1));
+          lineCoverProgress = 1;
+        } else if (t < HOLD_END) {
+          const holdProgress = clamp((t - REVEAL_END) / HOLD_SECONDS, 0, 1);
+          const settle = clamp(holdProgress / 0.72, 0, 1);
+          sceneTime = SCENE1_SECONDS;
+          lineEnd = TIMELINE_LINE_LENGTH;
+          uiOpacity = 0;
+          scene3Opacity = 1;
+          circleR = CIRCLE_FULL_R;
+          mapReveal = clamp((1 + settle * (MAP_REVEAL_SLOW_FACTOR - 1)) / MAP_REVEAL_SLOW_FACTOR, 0, 1);
+          mapAlpha = 0.62;
+          finalTextOpacity = 1;
+          lineCoverProgress = 1;
+        } else {
+          const p = clamp((t - HOLD_END) / COLLAPSE_SECONDS, 0, 1);
+          const e = easeInOutCubic(p);
+          sceneTime = 0;
+          lineEnd = TIMELINE_LINE_LENGTH;
+          uiOpacity = smoothstep(p);
+          scene3Opacity = 1 - smoothstep(clamp((p - 0.92) / 0.08, 0, 1));
+          circleR = lerp(CIRCLE_FULL_R, DOT_BASE_R, e);
+          mapReveal = 1;
+          mapAlpha = 0.62 * (1 - smoothstep(p));
+          finalTextOpacity = 1 - smoothstep(p);
+          lineCoverProgress = 1 - smoothstep(p);
+        }
+
+        timelineLine.setAttribute("x2", lineEnd.toFixed(2));
+        timelineLine.setAttribute("stroke", mixWhiteToAccent(lineCoverProgress));
+        minorTicks.setAttribute("opacity", (1 - lineCoverProgress).toFixed(3));
+        setOpacity(uiLayer, uiOpacity);
+        updateTimeline(sceneTime);
+
+        setOpacity(scene3Layer, scene3Opacity);
+        clipCircle.setAttribute("r", circleR.toFixed(2));
+        if (mapAlpha <= 0.001) {
+          if (mapVisible) {
+            resetMapDots();
+            mapVisible = false;
+          }
+        } else {
+          updateMapDots(mapReveal, mapAlpha);
+          mapVisible = true;
+        }
+        setOpacity(finalContent, finalTextOpacity);
+      }
+
+      let start = null;
+      function frame(now) {
+        if (start === null) {
+          start = now;
+        }
+        const elapsed = (now - start) / 1000;
+        const wrapped = elapsed % LOOP_WITH_START_HOLD;
+        const sceneTime = wrapped < START_HOLD_SECONDS ? 0 : (wrapped - START_HOLD_SECONDS);
+        render(sceneTime);
+        requestAnimationFrame(frame);
+      }
+
+      render(0);
+      requestAnimationFrame(frame);
+    })();
+  </script>
+</body>
+</html>
